@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if not products %}
+
+<h2>No products in database</h2>
+
+{% else %}
+<h1>Product Catalog</h1>
+<ol>
+{% for product in products %}
+<li>
+    <strong>{{ product.title }}</strong> | Price: {{ product.price }}
+    <br>
+    {{ product.description }}
+    <form action="/delete_product/" method="POST"><input name="id" type="hidden" value="{{ product.id }}">
+    {% csrf_token %}  <button type="submit">Delete product</button>
+    </form>
+
+</li>
+{% endfor %}
+</ol>
+{% endif %}
+
+{% endblock %}
