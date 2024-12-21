@@ -1,10 +1,15 @@
+<!-- Страница отображения каталога товаров -->
+
 {% extends 'base.html' %}
 
 {% block content %}
 
-{% if not products %}
+{% if message %}
+    <h2>{{ message }}</h2>
+{% endif %}
 
-<h2>No products in database</h2>
+{% if not products %}
+    <h2>No products in database</h2>
 
 {% else %}
 <h1>Product Catalog</h1>

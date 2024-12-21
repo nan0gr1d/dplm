@@ -1,6 +1,12 @@
+<!-- Страница отображения формы добавления товара в каталог -->
+
 {% extends 'base.html' %}
 
 {% block content %}
+
+{% if message %}
+    <h2>{{message}}</h2>
+{% endif %}
 
 <h2>
 {{ error }}

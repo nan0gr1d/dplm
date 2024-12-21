@@ -1,3 +1,5 @@
+<!-- Основная (базовая) страница приложения. От нее наследуются все остальные страницы -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,20 +7,16 @@
     <title>Urban Shop</title>
 </head>
 <body>
-<!--menu-->
 
+<!--menu-->
 <ul>
-    <li><a href="/">Home page</a></li><br>
-    <li><a href="/catalog/">Catalog</a></li><br>
+    <li><a href="/">Home page</a></li>
+    <li><a href="/catalog/">Catalog</a></li>
     <li><a href="/add_product/">Add product</a></li>
 </ul>
-    <hr>
-
+<hr>
 
 {% block content %}
-<p>
-<h1 align="center">Default title</h1>
-</p>
 {% endblock %}
 
 </body>
