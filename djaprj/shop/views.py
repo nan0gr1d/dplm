@@ -2,25 +2,43 @@ from django.shortcuts import render
 from .models import Product
 from .forms import ProductAdd
 
-# Отображаем домашнюю страницу
 def homepage(request):
+    """
+    Функция отображает домашнюю страницу приложения
+    :param request: - параметры запроса
+    :return: - возвращает домашнюю страницу по шаблону home.html
+    """
     return render(request, "home.html")
 
-# Отображаем каталог товаров
+
 def catalog(request):
+    """
+    Функция отображения каталога товаров
+    :param request: - параметры запроса
+    :return: - возвращает страницу каталога товаров по шаблону catalog.html
+    """
     products = Product.objects.all()
     context = {
         "products": products
     }
     return render(request, "catalog.html", context=context)
 
-# Обрабатываем данные из формы добавления товара
+
 def process_form_data(title, price):
+    """
+    Функция проверки данных формы добавления товара
+    :param title: - название товара
+    :param price: - цена товара
+    :return: - возвращает текстовое сообщение с диагностикой ошибки по результатам проверки.
+            Если данные корректны, то возвращает пустое сообщение.
+    """
     error = ''
+    # Проверка цены товара на положительность
     if price <= 0:
         error = 'Product price must be positive number!'
         return error
 
+    # Проверка названия товара на уникальность в каталоге
     products = Product.objects.all()
     for product in products:
         if title == product.title:
@@ -29,8 +47,12 @@ def process_form_data(title, price):
     return error
 
 
-# Добавляем новый товар в каталог
 def add_product(request):
+    """
+    Функция добавления нового товара в каталог
+    :param request: - параметры запроса
+    :return: - возвращает форму добавления товара с сообщением о результате операции
+    """
     message = ''
     if request.method == 'POST':
         form = ProductAdd(request.POST)
@@ -53,8 +75,13 @@ def add_product(request):
     }
     return render(request, 'product_add.html', context=context)
 
-# Удаляем товар из каталога по идентификатору
+
 def delete_product(request):
+    """
+    Функция удаления товара из каталога по идентификатору
+    :param request: - параметры запроса
+    :return: - возвращает страницу каталога товара с сообщением о результате операции.
+    """
     id = request.POST.get("id")
     # Есть ли товар с указанным идентификатором в каталоге?
     product = Product.objects.get(id=id)
